@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem,
-            Button, Form, FormGroup, Label, Input, Col, FormFeedback } from 'reactstrap';
+import {
+    Breadcrumb, BreadcrumbItem,
+    Button, Form, FormGroup, Label, Input, Col, FormFeedback, Row
+} from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Control, LocalForm, Errors } from 'react-redux-form';
+
+
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !(val) || (val.length <= len);
+const minLength = (len) => (val) => val && (val.length >= len);
+const isNumber = (val) => !isNaN(Number(val));
+const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+
 
 class Contact extends Component {
     constructor(props) {
@@ -22,36 +33,12 @@ class Contact extends Component {
                 email: false
             }
         };
+
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleBlur = this.handleBlur.bind(this)
+        
     }
 
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-    
-        this.setState({
-          [name]: value
-        });
-    }
-
-    handleSubmit(event) {
-        console.log('Current State is: ' + JSON.stringify(this.state));
-        alert('Current State is: ' + JSON.stringify(this.state));
-        event.preventDefault();
-    }
-
-
-    handleBlur = (field) => (evt) => {
-        this.setState({
-          touched: { ...this.state.touched, [field]: true },
-        });
-    }
-
-
-    
     validate(firstname, lastname, telnum, email) {
 
         const errors = {
@@ -80,7 +67,36 @@ class Contact extends Component {
 
         return errors;
     }
+    
+    
+    handleBlur = (field) => (evt) => {
+        this.setState({
+          touched: { ...this.state.touched, [field]: true },
+        });
+    }
 
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+    
+        this.setState({
+          [name]: value
+        });
+    }
+
+    handleSubmit(event) {
+        console.log('Current State is: ' + JSON.stringify(this.state));
+        alert('Current State is: ' + JSON.stringify(this.state));
+        event.preventDefault();
+    }
+
+
+   
+
+
+
+    
     render(){
         const errors = this.validate(this.state.firstname, this.state.lastname, this.state.telnum, this.state.email);
         return (
@@ -127,7 +143,7 @@ class Contact extends Component {
                    </div>
                     <div className="col-12 col-md-9">
                         <Form onSubmit={this.handleSubmit}>
-                            <FormGroup row>
+                        <FormGroup row>
                                 <Label htmlFor="firstname" md={2}>First Name</Label>
                                 <Col md={10}>
                                     <Input type="text" id="firstname" name="firstname"
@@ -137,7 +153,7 @@ class Contact extends Component {
                                         invalid={errors.firstname !== ''}
                                         onBlur={this.handleBlur('firstname')}
                                         onChange={this.handleInputChange} />
-                                        <FormFeedback>{errors.firstname}</FormFeedback>
+                                    <FormFeedback>{errors.firstname}</FormFeedback>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
@@ -150,20 +166,20 @@ class Contact extends Component {
                                         invalid={errors.lastname !== ''}
                                         onBlur={this.handleBlur('lastname')}
                                         onChange={this.handleInputChange} />
-                                        <FormFeedback>{errors.lastname}</FormFeedback>
-                                </Col>                        
+                                    <FormFeedback>{errors.lastname}</FormFeedback>
+                                </Col>
                             </FormGroup>
                             <FormGroup row>
-                            <Label htmlFor="telnum" md={2}>Contact Tel.</Label>
+                                <Label htmlFor="telnum" md={2}>Contact Tel.</Label>
                                 <Col md={10}>
                                     <Input type="tel" id="telnum" name="telnum"
-                                        placeholder="Tel. number"
+                                        placeholder="Tel. Number"
                                         value={this.state.telnum}
                                         valid={errors.telnum === ''}
                                         invalid={errors.telnum !== ''}
                                         onBlur={this.handleBlur('telnum')}
                                         onChange={this.handleInputChange} />
-                                        <FormFeedback>{errors.telnum}</FormFeedback>
+                                    <FormFeedback>{errors.telnum}</FormFeedback>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
@@ -176,7 +192,7 @@ class Contact extends Component {
                                         invalid={errors.email !== ''}
                                         onBlur={this.handleBlur('email')}
                                         onChange={this.handleInputChange} />
-                                        <FormFeedback>{errors.email}</FormFeedback>
+                                    <FormFeedback>{errors.email}</FormFeedback>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
@@ -222,7 +238,7 @@ class Contact extends Component {
             </div>
         );
     }
-   
+
 }
 
 export default Contact;

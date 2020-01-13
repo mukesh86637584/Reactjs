@@ -1,4 +1,4 @@
-import React from 'react';
+  import React from 'react';
 import { Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle} from 'reactstrap';
 
@@ -24,6 +24,7 @@ import { Card, CardImg, CardText, CardBody,
 
 
 function Home(props) {
+    console.log('props home----------------', props);
     return (
         <div className="container">
             <div className="row align-items-start">
