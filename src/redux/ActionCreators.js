@@ -1,4 +1,5 @@
 import * as ActionTypes from './ActionTypes';
+import { baseUrl } from '../shared/baseUrl';
 import { Comments } from './comments';
 import { DISHES } from '../shared/dishes';
 

@@ -5,13 +5,14 @@ import {
     CardTitle, Breadcrumb, BreadcrumbItem
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderMenuItem({ dish, onClick }) {
     console.log('render menu item---------', dish, onClick)
     return (
         <Card>
             <Link to={`/menu/${dish.id}`} />
-                <CardImg width="100%" src={dish.image} alt={dish.name} />
+            <CardImg src={baseUrl + item.image} alt={item.name} />
                 <CardImgOverlay>
                     <CardTitle>{dish.name}</CardTitle>
                 </CardImgOverlay>
@@ -26,7 +27,7 @@ function RenderMenuItem({ dish, onClick }) {
         const menu = props.dishes.dishes.map((dish) => {
             return (
                 <div className="col-12 col-md-5 m-1" key={dish.id}>
-                <RenderMenuItem dish={dish} />
+                <RenderMenuItem item={props.promotion} isLoading={props.promoLoading} errMess={props.promoErrMess} />
             </div>
             );
             });

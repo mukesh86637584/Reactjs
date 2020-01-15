@@ -1,5 +1,6 @@
 import React, { Component }  from 'react';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalBody, ModalHeader, Row, Col, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
@@ -7,7 +8,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 
-class CommentForm extends Component { 
+class CommentForm extends Component { n
 	constructor(props) {
 		super(props);
 
@@ -90,7 +91,7 @@ function RenderDish({dish}) {
     if (dish != null) {
         return(
             <Card>
-                <CardImg top src={dish.image} alt={dish.name} />
+                 <CardImg top src={baseUrl + dish.image} alt={dish.name} />
                 <CardBody>
                     <CardTitle>{dish.name}</CardTitle>
                     <CardText>{dish.description}</CardText>
